@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encapsulamento - Pilares da POO</title>
+    <link rel="stylesheet" href="estilos.css">
+      <!-- Highlight.js CSS -->
+     <link rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+    <!-- Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Inicialização -->
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header>
+        <h1>Encapsulamento</h1>
+        <nav>
+            <a href="index.html">Voltar</a>
+            <a href="abstracao.html">Abstração</a>
+            <a href="encapsulamento.html">Encapsulamento</a>
+            <a href="heranca.html">Herança</a>
+            <a href="polimorfismo.html">Polimorfismo</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="conceito">
+            <h2>O que é Encapsulamento?</h2>
+            <p>O <strong>encapsulamento</strong> é o pilar da POO que protege os atributos de uma classe, evitando acesso direto a eles. Consiste em esconder as implementações internas de uma classe e expor apenas o necessário através de interfaces bem definidas (métodos públicos).</p>
+            
+            <div class="destaque">
+                <p>Encapsulamento significa <em>"esconder os detalhes de implementação e expor apenas o necessário"</em>.</p>
+            </div>
+        </section>
+
+        <section class="exemplo">
+            <h2>Exemplo Prático</h2>
+            <p>Vamos ver como implementar o encapsulamento em uma classe ContaBancaria:</p>
+            
+            <div class="codigo">
+                <pre class="codigo">
+                    <code>
+public class ContaBancaria {
+    // Atributos privados (encapsulados)
+    private String titular;
+    private double saldo;
+    private String numeroConta;
+    private String senha;
+    
+    // Construtor
+    public ContaBancaria(String titular, String numeroConta, String senha) {
+        this.titular = titular;
+        this.numeroConta = numeroConta;
+        this.senha = senha;
+        this.saldo = 0.0;
+    }
+    
+    // Métodos públicos (interface)
+    public String getTitular() {
+        return titular;
+    }
+    
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+    
+    public String getNumeroConta() {
+        return numeroConta;
+    }
+    
+    public double getSaldo() {
+        return saldo;
+    }
+    
+    // Nota: não existe setSaldo() - o saldo só pode ser alterado pelos métodos
+    // sacar() e depositar()
+    
+    public boolean sacar(double valor, String senhaInformada) {
+        if (!senhaCorreta(senhaInformada)) {
+            return false;
+        }
+        
+        if (valor > 0 && valor <= saldo) {
+            saldo -= valor;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean depositar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+            return true;
+        }
+        return false;
+    }
+    
+    // Método privado (implementação interna)
+    private boolean senhaCorreta(String senhaInformada) {
+        return this.senha.equals(senhaInformada);
+    }
+}
+                </code></pre>
+            </div>
+            
+            <p>Neste exemplo:</p>
+            <ul>
+                <li>Os atributos são <code>private</code>, protegendo-os do acesso externo direto</li>
+                <li>Fornecemos getters para acesso controlado (getTitular, getSaldo)</li>
+                <li>Alguns atributos não podem ser alterados diretamente (como saldo)</li>
+                <li>As operações de modificação (sacar, depositar) incluem validações</li>
+                <li>A implementação interna (método senhaCorreta) está oculta</li>
+            </ul>
+        </section>
+
+        <section class="aplicacao">
+            <h2>Níveis de Acesso em Java</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Modificador</th>
+                        <th>Mesma Classe</th>
+                        <th>Mesmo Pacote</th>
+                        <th>Subclasse</th>
+                        <th>Qualquer Lugar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>private</code></td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td><code>default</code> (sem modificador)</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td><code>protected</code></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td><code>public</code></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="padroes">
+            <h2>Padrões de Encapsulamento</h2>
+            
+            <h3>JavaBeans</h3>
+            <p>Um padrão comum para encapsulamento em Java:</p>
+            <ul>
+                <li>Atributos privados</li>
+                <li>Métodos públicos getters e setters</li>
+                <li>Nome dos métodos seguem o padrão get/set + Nome do atributo</li>
+                <li>Construtor sem argumentos</li>
+            </ul>
+            
+            <h3>Objetos Imutáveis</h3>
+            <p>Outra forma de encapsulamento onde, após criado, o objeto não pode ser modificado:</p>
+            <div class="codigo">
+                <pre class="codigo">
+                    <code>
+public final class Pessoa {
+    private final String nome;
+    private final String cpf;
+    
+    public Pessoa(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+    }
+    
+    public String getNome() {
+        return nome;
+    }
+    
+    public String getCpf() {
+        return cpf;
+    }
+    
+    // Não existem setters
+}
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="beneficios">
+            <h2>Benefícios do Encapsulamento</h2>
+            <ul>
+                <li><strong>Segurança dos dados:</strong> Protege contra modificações indevidas</li>
+                <li><strong>Validação de dados:</strong> Permite validar valores antes de atribuí-los</li>
+                <li><strong>Flexibilidade de implementação:</strong> Permite alterar a implementação interna sem afetar o código cliente</li>
+                <li><strong>Manutenção simplificada:</strong> Facilita localizar erros e fazer alterações</li>
+                <li><strong>Oculta complexidade:</strong> Esconde detalhes complexos de quem usa a classe</li>
+            </ul>
+        </section>
+
+        <section class="conclusao">
+            <h2>Conclusão</h2>
+            <p>O encapsulamento é um dos princípios mais importantes da POO, pois promove a segurança e a robustez do código. Ao encapsular dados e comportamentos, garantimos que os objetos mantenham seu estado interno consistente, facilitando o desenvolvimento, manutenção e evolução do sistema.</p>
+            <p>Na prática, sempre devemos buscar encapsular nossos atributos usando modificadores de acesso adequados e expondo apenas o que é necessário através de métodos bem definidos.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 - Os 4 Pilares da Programação Orientada a Objetos</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polimorfismo - Pilares da POO</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+    <!-- Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Inicialização -->
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header>
+        <h1>Pilares da Programação Orientada a Objetos</h1>
+        <nav>
+            <a href="index.html">Voltar</a>
+            <a href="abstracao.html">Abstração</a>
+            <a href="encapsulamento.html">Encapsulamento</a>
+            <a href="heranca.html">Herança</a>
+            <a href="polimorfismo.html">Polimorfismo</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Polimorfismo</h2>
+            <p>O <strong>polimorfismo</strong> é um dos quatro pilares fundamentais da Programação Orientada a Objetos (POO). O termo vem do grego "poly" (muitos) e "morphos" (formas), significando "muitas formas". Este conceito permite que objetos de diferentes classes sejam tratados como objetos de uma classe comum, possibilitando um código mais flexível e dinâmico.</p>
+
+            <h3>Conceito Fundamental</h3>
+            <p>O polimorfismo permite que um mesmo método ou operador tenha diferentes comportamentos dependendo do contexto em que é utilizado. Ele está intimamente ligado à herança, pois permite que métodos herdados sejam sobrescritos nas subclasses para se comportarem de maneira diferente.</p>
+
+            <div class="destaque">
+                <p>Exemplo: O método <strong>emitirSom()</strong> pode fazer com que um <strong>Cachorro</strong> lata e um <strong>Gato</strong> mie, mesmo que ambos sejam chamados através de uma referência para <strong>Animal</strong>.</p>
+            </div>
+
+            <h3>Tipos de Polimorfismo</h3>
+            
+            <h4>1. Polimorfismo de Sobrecarga (Compile-time/Estático)</h4>
+            <p>Ocorre quando múltiplos métodos com o mesmo nome coexistem na mesma classe, mas com diferentes parâmetros (número, tipo ou ordem). A decisão sobre qual método executar é tomada durante a compilação.</p>
+            
+            <pre class="codigo">
+                <code>
+class Calculadora {
+    // Métodos sobrecarregados
+    public int somar(int a, int b) {
+        return a + b;
+    }
+    
+    public double somar(double a, double b) {
+        return a + b;
+    }
+    
+    public int somar(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+                </code>
+            </pre>
+            
+            <h4>2. Polimorfismo de Sobreposição/Substituição (Runtime/Dinâmico)</h4>
+            <p>Ocorre quando uma subclasse fornece uma implementação específica para um método já definido na superclasse. A decisão sobre qual método executar é tomada durante a execução (runtime), baseada no tipo do objeto.</p>
+            
+            <pre class="codigo">
+                <code>
+class Animal {
+    public void emitirSom() {
+        System.out.println("Som genérico de animal");
+    }
+}
+
+class Cachorro extends Animal {
+    @Override
+    public void emitirSom() {
+        System.out.println("Au au!");
+    }
+}
+
+class Gato extends Animal {
+    @Override
+    public void emitirSom() {
+        System.out.println("Miau!");
+    }
+}
+
+// Uso do polimorfismo
+Animal animal1 = new Cachorro();
+Animal animal2 = new Gato();
+
+animal1.emitirSom(); // Saída: "Au au!"
+animal2.emitirSom(); // Saída: "Miau!"
+                </code>
+            </pre>
+            
+            <h4>3. Polimorfismo Paramétrico (Generics)</h4>
+            <p>Permite escrever código que pode trabalhar com diferentes tipos de dados. É implementado através de genéricos ou templates em linguagens como Java, C# e C++.</p>
+            
+            <pre class="codigo">
+                <code>
+// Exemplo em Java com Generics
+public class Caixa<T> {
+    private T conteudo;
+    
+    public void guardar(T item) {
+        conteudo = item;
+    }
+    
+    public T obter() {
+        return conteudo;
+    }
+}
+
+// Uso
+Caixa<String> caixaDeTexto = new Caixa<>();
+caixaDeTexto.guardar("Olá Mundo");
+String texto = caixaDeTexto.obter();
+
+Caixa<Integer> caixaDeNumero = new Caixa<>();
+caixaDeNumero.guardar(42);
+Integer numero = caixaDeNumero.obter();
+                </code>
+            </pre>
+            
+            <h4>4. Polimorfismo de Coerção (Casting)</h4>
+            <p>Ocorre quando um valor é convertido de um tipo de dados para outro. Isso pode ser feito explicitamente pelo programador ou implicitamente pelo compilador.</p>
+            
+            <pre class="codigo">
+                <code>
+int numero = 10;
+double decimal = numero; // Coerção implícita
+
+double pi = 3.14159;
+int piArredondado = (int) pi; // Coerção explícita
+                </code>
+            </pre>
+
+            <h3>Benefícios do Polimorfismo</h3>
+            <ul>
+                <li><strong>Flexibilidade:</strong> Permite que o código trabalhe com objetos de diferentes tipos de maneira uniforme.</li>
+                <li><strong>Extensibilidade:</strong> Facilita a adição de novos tipos sem modificar o código existente.</li>
+                <li><strong>Reusabilidade:</strong> Promove o reuso de código através de interfaces e classes abstratas.</li>
+                <li><strong>Desacoplamento:</strong> Reduz a dependência entre diferentes partes do sistema.</li>
+            </ul>
+
+            <h3>Princípio da Substituição de Liskov</h3>
+            <p>Este princípio, formulado por Barbara Liskov, é fundamental para o uso correto do polimorfismo:</p>
+            <blockquote>
+                "Se S é um subtipo de T, então objetos do tipo T podem ser substituídos por objetos do tipo S sem alterar nenhuma das propriedades desejáveis do programa."
+            </blockquote>
+            <p>Ou seja, uma subclasse deve ser capaz de substituir sua superclasse sem quebrar a funcionalidade do programa.</p>
+
+            <h3>Polimorfismo com Interfaces</h3>
+            <p>Interfaces são uma ferramenta poderosa para implementar polimorfismo, especialmente em linguagens que não suportam herança múltipla como Java.</p>
+            
+            <pre class="codigo">
+                <code>
+interface Reproduzivel {
+    void reproduzir();
+}
+
+class MP3Player implements Reproduzivel {
+    @Override
+    public void reproduzir() {
+        System.out.println("Reproduzindo arquivo MP3");
+    }
+}
+
+class VideoPlayer implements Reproduzivel {
+    @Override
+    public void reproduzir() {
+        System.out.println("Reproduzindo arquivo de vídeo");
+    }
+}
+
+// Uso do polimorfismo com interfaces
+Reproduzivel media1 = new MP3Player();
+Reproduzivel media2 = new VideoPlayer();
+
+media1.reproduzir(); // Saída: "Reproduzindo arquivo MP3"
+media2.reproduzir(); // Saída: "Reproduzindo arquivo de vídeo"
+                </code>
+            </pre>
+
+            <h3>Polimorfismo em Diferentes Linguagens</h3>
+            
+            <h4>Polimorfismo em C++</h4>
+            <pre class="codigo">
+                <code>
+// C++ usa funções virtuais para polimorfismo
+class Animal {
+public:
+    virtual void emitirSom() {
+        cout << "Som genérico de animal" << endl;
+    }
+};
+
+class Cachorro : public Animal {
+public:
+    void emitirSom() override {
+        cout << "Au au!" << endl;
+    }
+};
+
+// Uso
+Animal* animal = new Cachorro();
+animal->emitirSom(); // Saída: "Au au!"
+                </code>
+            </pre>
+            
+            <h4>Polimorfismo em Python</h4>
+            <pre class="codigo">
+                <code>
+# Python tem polimorfismo sem tipagem explícita
+class Animal:
+    def emitir_som(self):
+        print("Som genérico de animal")
+
+class Cachorro(Animal):
+    def emitir_som(self):
+        print("Au au!")
+
+# Duck Typing - conceito próprio de Python
+def fazer_barulho(animal):
+    animal.emitir_som()
+
+animal = Animal()
+cachorro = Cachorro()
+
+fazer_barulho(animal)  # Saída: "Som genérico de animal"
+fazer_barulho(cachorro)  # Saída: "Au au!"
+                </code>
+            </pre>
+            
+            <h4>Polimorfismo em JavaScript</h4>
+            <pre  class="codigo">
+                <code>
+// JavaScript usa protótipos e é dinamicamente tipado
+class Animal {
+    emitirSom() {
+        console.log("Som genérico de animal");
+    }
+}
+
+class Cachorro extends Animal {
+    emitirSom() {
+        console.log("Au au!");
+    }
+}
+
+const animal = new Animal();
+const cachorro = new Cachorro();
+
+animal.emitirSom(); // Saída: "Som genérico de animal"
+cachorro.emitirSom(); // Saída: "Au au!"
+                </code>
+            </pre>
+
+            <h3>Casos de Uso Práticos</h3>
+            
+            <h4>Sistema de Formas Geométricas</h4>
+            <pre class="codigo">
+                <code>
+abstract class Forma {
+    abstract double calcularArea();
+}
+
+class Circulo extends Forma {
+    private double raio;
+    
+    public Circulo(double raio) {
+        this.raio = raio;
+    }
+    
+    @Override
+    double calcularArea() {
+        return Math.PI * raio * raio;
+    }
+}
+
+class Retangulo extends Forma {
+    private double largura;
+    private double altura;
+    
+    public Retangulo(double largura, double altura) {
+        this.largura = largura;
+        this.altura = altura;
+    }
+    
+    @Override
+    double calcularArea() {
+        return largura * altura;
+    }
+}
+
+// Uso
+Forma forma1 = new Circulo(5);
+Forma forma2 = new Retangulo(4, 6);
+
+System.out.println("Área do círculo: " + forma1.calcularArea());
+System.out.println("Área do retângulo: " + forma2.calcularArea());
+                </code>
+            </pre>
+            
+            <h4>Sistema de Pagamento</h4>
+            <pre class="codigo">
+                <code>
+interface MetodoPagamento {
+    void processarPagamento(double valor);
+}
+
+class CartaoCredito implements MetodoPagamento {
+    private String numero;
+    
+    public CartaoCredito(String numero) {
+        this.numero = numero;
+    }
+    
+    @Override
+    public void processarPagamento(double valor) {
+        System.out.println("Processando pagamento de R$" + valor + " com cartão de crédito " + numero);
+    }
+}
+
+class PayPal implements MetodoPagamento {
+    private String email;
+    
+    public PayPal(String email) {
+        this.email = email;
+    }
+    
+    @Override
+    public void processarPagamento(double valor) {
+        System.out.println("Processando pagamento de R$" + valor + " via PayPal para " + email);
+    }
+}
+
+// Uso
+class Loja {
+    public void checkout(double valorTotal, MetodoPagamento metodoPagamento) {
+        metodoPagamento.processarPagamento(valorTotal);
+    }
+}
+                </code>
+            </pre>
+
+            <h3>Conclusão</h3>
+            <p>O polimorfismo é um dos conceitos mais poderosos da programação orientada a objetos, permitindo criar sistemas altamente flexíveis, extensíveis e fáceis de manter. Quando combinado com os outros pilares da POO (abstração, encapsulamento e herança), o polimorfismo proporciona uma base sólida para o desenvolvimento de software robusto e adaptável.</p>
+            
+            <p>Na prática, o polimorfismo é amplamente utilizado em frameworks e bibliotecas, possibilitando extensões e personalizações sem modificar o código-fonte original. Ele é essencial em padrões de projeto como Strategy, Factory Method, Adapter, entre outros.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Pilares da Programação Orientada a Objetos</p>
+    </footer>
+</body>
+</html>

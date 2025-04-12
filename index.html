@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os 4 Pilares da POO em Java</title>
+      <!-- Highlight.js CSS -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+
+<!-- Highlight.js JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- Inicialização -->
+<script>hljs.highlightAll();</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .java-logo {
+            display: block;
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+            background-color: white;
+            border-radius: 50%;
+            padding: 15px;
+        }
+        .pillars {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        
+        .pillar {
+            flex-basis: calc(50% - 20px);
+            margin-bottom: 40px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .pillar-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .pillar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .pillar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .pillar-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #e8eaf6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+            color: #3949ab;
+        }
+        .pillar h2 {
+            color: #1a237e;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #c5cae9;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        .example-code {
+            background-color: #263238;
+            color: #f5f5f5;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: Consolas, Monaco, 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            position: relative;
+        }
+        .code-comment {
+            color: #8bc34a;
+        }
+        .code-keyword {
+            color: #ff5722;
+        }
+        .code-string {
+            color: #ffca28;
+        }
+        .code-normal {
+            color: #e0e0e0;
+        }
+        .benefit-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+        .benefit-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+        .benefit-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+        .diagram {
+            background-color: #e8eaf6;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .pillar-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #1a237e;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .real-world {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #1976d2;
+        }
+        .real-world h4 {
+            color: #1976d2;
+            margin-bottom: 8px;
+        }
+        .conclusion {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .conclusion h3 {
+            color: #1a237e;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="java-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="#f44336">
+                    <path d="M28.4,2.4c-2.7,1.6-5.3,4.1-6.6,7.1c-1.9,4.3-0.5,8.8,1.6,12.3c0.4,0.7,0.9,1.3,1.4,1.9c-0.4-1.3-0.7-2.7-0.9-4c-0.8-4.8,2.3-9.8,6.7-11.7C30.6,8,28.4,2.4,28.4,2.4L28.4,2.4z"/>
+                    <path d="M35.7,15.2c0,0-6.2-0.1-6.2,1.5c0,1.6,0.1,3.1,0.1,3.1s0.1,0.8,1.2,0.8c1.1,0,5.1,0.1,5.1,0.1s1.7,0.2,1.7,1.8c0,1.6-0.1,2.4-0.1,2.4s-0.2,1.1-2.5,1.1H23.5v2.2h12.4c0,0,4.9,0.2,4.9-3.4c0-3.5-0.7-4.2-2.5-4.7c0,0,1.9-0.3,1.9-2.7C40.1,15.3,38.2,15.2,35.7,15.2L35.7,15.2z"/>
+                    <path d="M15.7,24.5c0,0-2.5,0.7-2.5,1.9c0,1.2,1.8,2.3,6.2,2.3c0,0,14.3-0.1,14.3-6.5c0-1.8-3.8-2.7-3.8-2.7s10.4,0.9,10.4,5.8c0,5-13.4,5.5-19.4,5.5c0,0-9.1,0-9.1-3.7C11.6,24,15.7,24.5,15.7,24.5L15.7,24.5z"/>
+                    <path d="M15.3,31.6c0,0-2.1,0-2.1,1.2c0,1.2,1.7,1.2,1.7,1.2h12v-2.4H15.3L15.3,31.6z"/>
+                    <path d="M15.5,35.9c0,0-2.2,0-2.2,1.5c0,1.4,2,1.5,2,1.5h11.7v-3H15.5L15.5,35.9z"/>
+                    <path d="M38.1,41c0,0,3.3-2.3,3.5-4.3H12.8c0,0-4.9,0.4-6.3,5.3c-1.4,4.9,3.2,5.4,3.2,5.4s1.3,0.2,2.2-0.7c0.9-0.9,0.8-1.9,0.8-1.9H38c0,0-0.6,2.7-4.9,3.6c-4.3,0.9-7.2-0.2-7.2-0.2s-1.2-0.2-2.5,0.9c-1.2,1.1-0.9,2.1-0.9,2.1s0.7,1.1,4.5,1.1c3.8,0,8.7-0.9,11.7-5.5C41.5,43.4,38.1,41,38.1,41L38.1,41z"/>
+                </svg>
+            </div>
+            <h1>Os 4 Pilares da Programação Orientada a Objetos</h1>
+            <p class="subtitle">Conceitos fundamentais para desenvolvimento em Java</p>
+        </header>
+
+        <div class="pillars">
+            <!-- ENCAPSULAMENTO -->
+            
+            <div class="pillar">
+                <a href="heranca.html" class="pillar-link">
+                <div class="pillar-number">1</div>
+                <div class="pillar-header">
+                    <div class="pillar-icon">🔒</div>
+                    <h2>Encapsulamento</h2>
+                </div>
+                <p>Encapsulamento é o conceito de esconder detalhes de implementação interna e expor apenas o necessário. Em Java, isso é feito usando modificadores de acesso e métodos getters e setters.</p>
+                
+                <div class="example-code">
+                    <span class="code-keyword">public class</span> <span class="code-normal">ContaBancaria {</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">private</span> <span class="code-normal">double saldo;</span> <span class="code-comment">// Atributo privado</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">private</span> <span class="code-normal">String titular;</span>
+                    <br><br>
+                    <span class="code-normal">    </span><span class="code-comment">// Getter - permite acesso controlado</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">public</span> <span class="code-normal">double getSaldo() {</span>
+                    <br>
+                    <span class="code-normal">        </span><span class="code-keyword">return</span> <span class="code-normal">saldo;</span>
+                    <br>
+                    <span class="code-normal">    }</span>
+                    <br><br>
+                    <span class="code-normal">    </span><span class="code-comment">// Setter - permite modificação controlada</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">public</span> <span class="code-normal">void depositar(double valor) {</span>
+                    <br>
+                    <span class="code-normal">        </span><span class="code-keyword">if</span> <span class="code-normal">(valor > 0) {</span>
+                    <br>
+                    <span class="code-normal">            </span><span class="code-keyword">this</span><span class="code-normal">.saldo += valor;</span>
+                    <br>
+                    <span class="code-normal">        }</span>
+                    <br>
+                    <span class="code-normal">    }</span>
+                    <br>
+                    <span class="code-normal">}</span>
+                </div>
+            </a>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Outer capsule (encapsulation) -->
+                        <rect x="10" y="10" width="300" height="130" rx="65" ry="65" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                        
+                        <!-- Class label -->
+                        <text x="160" y="30" font-family="Arial" font-size="14" text-anchor="middle" fill="#1976d2" font-weight="bold">ContaBancaria</text>
+                        
+                        <!-- Private area -->
+                        <rect x="35" y="45" width="250" height="50" rx="10" ry="10" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1" stroke-dasharray="5,3"/>
+                        <text x="160" y="65" font-family="Arial" font-size="12" text-anchor="middle">private double saldo</text>
+                        <text x="160" y="85" font-family="Arial" font-size="12" text-anchor="middle">private String titular</text>
+                        <text x="60" y="65" font-family="Arial" font-size="14" text-anchor="middle" fill="#d32f2f">🔒</text>
+                        
+                        <!-- Public interface -->
+                        <rect x="35" y="105" width="250" height="25" rx="5" ry="5" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
+                        <text x="160" y="122" font-family="Arial" font-size="12" text-anchor="middle">public métodos (getSaldo(), depositar())</text>
+                        <text x="60" y="122" font-family="Arial" font-size="14" text-anchor="middle" fill="#388e3c">🔓</text>
+                    </svg>
+                </div>
+
+                <ul class="benefit-list">
+                    <li>Protege os dados sensíveis de acesso externo direto</li>
+                    <li>Permite validação de dados antes da modificação</li>
+                    <li>Facilita a mudança interna sem afetar o código externo</li>
+                </ul>
+
+                <div class="real-world">
+                    <h4>Analogia do Mundo Real:</h4>
+                    <p>Como um carro: você só precisa conhecer a interface (volante, pedais) e não os detalhes do motor para dirigi-lo.</p>
+                </div>
+            </div>
+
+            <!-- HERANÇA -->
+            <div class="pillar">
+                <a href="heranca.html" class="pillar-link">
+                <div class="pillar-number">2</div>
+                <div class="pillar-header">
+                    <div class="pillar-icon">👪</div>
+                    <h2>Herança</h2>
+                </div>
+                <p>Herança permite que uma classe (subclasse) herde atributos e métodos de outra classe (superclasse). Em Java, usamos a palavra-chave <code>extends</code> para criar essa relação.</p>
+                
+                <div class="example-code">
+                    <span class="code-comment">// Superclasse</span>
+                    <br>
+                    <span class="code-keyword">public class</span> <span class="code-normal">Animal {</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">protected</span> <span class="code-normal">String nome;</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">protected</span> <span class="code-normal">int idade;</span>
+                    <br><br>
+                    <span class="code-normal">    </span><span class="code-keyword">public void</span> <span class="code-normal">emitirSom() {</span>
+                    <br>
+                    <span class="code-normal">        System.out.println(</span><span class="code-string">"Som genérico de animal"</span><span class="code-normal">);</span>
+                    <br>
+                    <span class="code-normal">    }</span>
+                    <br>
+                    <span class="code-normal">}</span>
+                    <br><br>
+                    <span class="code-comment">// Subclasse que herda de Animal</span>
+                    <br>
+                    <span class="code-keyword">public class</span> <span class="code-normal">Cachorro </span><span class="code-keyword">extends</span><span class="code-normal"> Animal {</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">private</span> <span class="code-normal">String raca;</span>
+                    <br><br>
+                    <span class="code-normal">    </span><span class="code-comment">// Sobrescrevendo o método da superclasse</span>
+                    <br>
+                    <span class="code-normal">    @Override</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">public void</span> <span class="code-normal">emitirSom() {</span>
+                    <br>
+                    <span class="code-normal">        System.out.println(</span><span class="code-string">"Au au!"</span><span class="code-normal">);</span>
+                    <br>
+                    <span class="code-normal">    }</span>
+                    <br>
+                    <span class="code-normal">}</span>
+                    
+                </div>
+                </a>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Superclass -->
+                        <rect x="85" y="10" width="150" height="70" rx="5" ry="5" fill="#e8eaf6" stroke="#3949ab" stroke-width="2"/>
+                        <text x="160" y="30" font-family="Arial" font-size="14" text-anchor="middle" fill="#3949ab" font-weight="bold">Animal</text>
+                        <line x1="85" y1="40" x2="235" y2="40" stroke="#3949ab" stroke-width="1"/>
+                        <text x="160" y="55" font-family="Arial" font-size="12" text-anchor="middle">nome, idade</text>
+                        <text x="160" y="70" font-family="Arial" font-size="12" text-anchor="middle">emitirSom()</text>
+                        
+                        <!-- Inheritance arrow -->
+                        <line x1="160" y1="80" x2="160" y2="100" stroke="#3949ab" stroke-width="2"/>
+                        <polygon points="160,110 155,95 165,95" fill="#3949ab"/>
+                        
+                        <!-- Subclass -->
+                        <rect x="85" y="110" width="150" height="70" rx="5" ry="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                        <text x="160" y="130" font-family="Arial" font-size="14" text-anchor="middle" fill="#1976d2" font-weight="bold">Cachorro</text>
+                        <line x1="85" y1="140" x2="235" y2="140" stroke="#1976d2" stroke-width="1"/>
+                        <text x="160" y="155" font-family="Arial" font-size="12" text-anchor="middle">+ raça</text>
+                        <text x="160" y="170" font-family="Arial" font-size="12" text-anchor="middle">emitirSom() (sobrescrito)</text>
+                    </svg>
+                </div>
+
+                <ul class="benefit-list">
+                    <li>Promove a reutilização de código</li>
+                    <li>Estabelece relacionamentos "é-um" entre classes</li>
+                    <li>Permite extensão de comportamentos existentes</li>
+                </ul>
+
+                <div class="real-world">
+                    <h4>Analogia do Mundo Real:</h4>
+                    <p>Como relações familiares: filhos herdam características dos pais, mas desenvolvem suas próprias particularidades.</p>
+                </div>
+            </div>
+
+            <!-- POLIMORFISMO -->
+            <div class="pillar">
+                <a href="polimorfismo.html" class="pillar-link">
+                <div class="pillar-number">3</div>
+                <div class="pillar-header">
+                    <div class="pillar-icon">🔄</div>
+                    <h2>Polimorfismo</h2>
+                </div>
+                <p>Polimorfismo permite que objetos de diferentes subclasses sejam tratados como objetos de uma superclasse comum, permitindo que um mesmo método se comporte de forma diferente em classes diferentes.</p>
+                
+                <div class="example-code">
+                    <span class="code-keyword">public class</span> <span class="code-normal">ExemploPolimorfismo {</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">public static void</span> <span class="code-normal">main(String[] args) {</span>
+                    <br>
+                    <span class="code-normal">        </span><span class="code-comment">// Polimorfismo: variável do tipo Animal</span>
+                    <br>
+                    <span class="code-normal">        </span><span class="code-comment">// referenciando objetos de subclasses</span>
+                    <br>
+                    <span class="code-normal">        Animal animal1 = </span><span class="code-keyword">new</span> <span class="code-normal">Cachorro();</span>
+                    <br>
+                    <span class="code-normal">        Animal animal2 = </span><span class="code-keyword">new</span> <span class="code-normal">Gato();</span>
+                    <br><br>
+                    <span class="code-normal">        </span><span class="code-comment">// Mesmo método, comportamentos diferentes</span>
+                    <br>
+                    <span class="code-normal">        animal1.emitirSom(); </span><span class="code-comment">// Saída: "Au au!"</span>
+                    <br>
+                    <span class="code-normal">        animal2.emitirSom(); </span><span class="code-comment">// Saída: "Miau!"</span>
+                    <br>
+                    <span class="code-normal">    }</span>
+                    <br>
+                    <span class="code-normal">}</span>
+                </div>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Animal Class -->
+                        <rect x="105" y="10" width="110" height="50" rx="5" ry="5" fill="#e8eaf6" stroke="#3949ab" stroke-width="2"/>
+                        <text x="160" y="30" font-family="Arial" font-size="14" text-anchor="middle" fill="#3949ab" font-weight="bold">Animal</text>
+                        <text x="160" y="45" font-family="Arial" font-size="12" text-anchor="middle">emitirSom()</text>
+                        
+                        <!-- Connecting lines -->
+                        <line x1="160" y1="60" x2="160" y2="70" stroke="#3949ab" stroke-width="1"/>
+                        <line x1="160" y1="70" x2="100" y2="70" stroke="#3949ab" stroke-width="1"/>
+                        <line x1="160" y1="70" x2="220" y2="70" stroke="#3949ab" stroke-width="1"/>
+                        <line x1="100" y1="70" x2="100" y2="80" stroke="#3949ab" stroke-width="1"/>
+                        <line x1="220" y1="70" x2="220" y2="80" stroke="#3949ab" stroke-width="1"/>
+                        
+                        <!-- Dog Class -->
+                        <rect x="45" y="80" width="110" height="50" rx="5" ry="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                        <text x="100" y="100" font-family="Arial" font-size="14" text-anchor="middle" fill="#1976d2" font-weight="bold">Cachorro</text>
+                        <text x="100" y="115" font-family="Arial" font-size="12" text-anchor="middle">emitirSom()</text>
+                        
+                        <!-- Cat Class -->
+                        <rect x="165" y="80" width="110" height="50" rx="5" ry="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                        <text x="220" y="100" font-family="Arial" font-size="14" text-anchor="middle" fill="#1976d2" font-weight="bold">Gato</text>
+                        <text x="220" y="115" font-family="Arial" font-size="12" text-anchor="middle">emitirSom()</text>
+                        
+                        <!-- Sound bubbles -->
+                        <ellipse cx="100" y="155" rx="45" ry="25" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
+                        <text x="100" y="155" font-family="Arial" font-size="12" text-anchor="middle" fill="#388e3c" font-weight="bold">"Au au!"</text>
+                        
+                        <ellipse cx="220" y="155" rx="45" ry="25" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
+                        <text x="220" y="155" font-family="Arial" font-size="12" text-anchor="middle" fill="#388e3c" font-weight="bold">"Miau!"</text>
+                        
+                        <line x1="100" y1="130" x2="100" y2="130" stroke="#388e3c" stroke-width="1"/>
+                        <line x1="220" y1="130" x2="220" y2="130" stroke="#388e3c" stroke-width="1"/>
+                    </svg>
+                </div>
+
+                <ul class="benefit-list">
+                    <li>Permite escrever código mais genérico e flexível</li>
+                    <li>Facilita a extensão de programas</li>
+                    <li>Possibilita sobrecarga (mesmo nome de método, diferentes parâmetros)</li>
+                    <li>Suporta sobrescrita (nova implementação de métodos herdados)</li>
+                </ul>
+
+                <div class="real-world">
+                    <h4>Analogia do Mundo Real:</h4>
+                    <p>Como um controle remoto universal que funciona em vários aparelhos - mesma interface, comportamentos específicos.</p>
+                </div>                
+            </div>
+            </a>
+
+            <!-- ABSTRAÇÃO -->
+            <div class="pillar">
+                <a href="abstracao.html" class="pillar-link">
+                <div class="pillar-number">4</div>
+                <div class="pillar-header">
+                    <div class="pillar-icon">🧩</div>
+                    <h2>Abstração</h2>
+                </div>
+                <p>Abstração consiste em identificar aspectos relevantes de um objeto para o contexto do programa, ignorando características menos importantes. Em Java, criamos classes abstratas e interfaces para este fim.</p>
+                
+                <div class="example-code">
+                    <span class="code-comment">// Classe abstrata - modelo genérico</span>
+                    <br>
+                    <span class="code-keyword">public abstract class</span> <span class="code-normal">Forma {</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-comment">// Método abstrato - sem implementação</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">public abstract double</span> <span class="code-normal">calcularArea();</span>
+                    <br><br>
+                    <span class="code-normal">    </span><span class="code-comment">// Método concreto - com implementação</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">public void</span> <span class="code-normal">exibirArea() {</span>
+                    <br>
+                    <span class="code-normal">        System.out.println(</span><span class="code-string">"A área é: "</span> <span class="code-normal">+ calcularArea());</span>
+                    <br>
+                    <span class="code-normal">    }</span>
+                    <br>
+                    <span class="code-normal">}</span>
+                    <br><br>
+                    <span class="code-comment">// Implementação concreta da abstração</span>
+                    <br>
+                    <span class="code-keyword">public class</span> <span class="code-normal">Circulo </span><span class="code-keyword">extends</span><span class="code-normal"> Forma {</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">private</span> <span class="code-normal">double raio;</span>
+                    <br><br>
+                    <span class="code-normal">    </span><span class="code-comment">// Implementando o método abstrato</span>
+                    <br>
+                    <span class="code-normal">    @Override</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">public double</span> <span class="code-normal">calcularArea() {</span>
+                    <br
+                    <span class="code-normal">    @Override</span>
+                    <br>
+                    <span class="code-normal">    </span><span class="code-keyword">public double</span> <span class="code-normal">calcularArea() {</span>
+                    <br>
+                    <span class="code-normal">        </span><span class="code-keyword">return</span> <span class="code-normal">Math.PI * raio * raio;</span>
+                    <br>
+                    <span class="code-normal">    }</span>
+                    <br>
+                    <span class="code-normal">}</span>
+                    
+                </div>
+                 </a>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Abstract class -->
+                        <rect x="60" y="10" width="200" height="70" rx="5" ry="5" fill="#fff3e0" stroke="#ff9800" stroke-width="2" stroke-dasharray="5,3"/>
+                        <text x="160" y="30" font-family="Arial" font-size="14" text-anchor="middle" fill="#ff9800" font-weight="bold">Forma (abstrata)</text>
+                        <line x1="60" y1="40" x2="260" y2="40" stroke="#ff9800" stroke-width="1"/>
+                        <text x="160" y="55" font-family="Arial" font-size="12" text-anchor="middle" font-style="italic">abstract calcularArea()</text>
+                        <text x="160" y="70" font-family="Arial" font-size="12" text-anchor="middle">exibirArea()</text>
+                        
+                        <!-- Implementation lines -->
+                        <line x1="160" y1="80" x2="160" y2="90" stroke="#ff9800" stroke-width="1"/>
+                        <line x1="160" y1="90" x2="100" y2="90" stroke="#ff9800" stroke-width="1"/>
+                        <line x1="160" y1="90" x2="220" y2="90" stroke="#ff9800" stroke-width="1"/>
+                        <line x1="100" y1="90" x2="100" y2="100" stroke="#ff9800" stroke-width="1"/>
+                        <line x1="220" y1="90" x2="220" y2="100" stroke="#ff9800" stroke-width="1"/>
+                        
+                        <!-- Concrete implementations -->
+                        <rect x="30" y="100" width="140" height="60" rx="5" ry="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                        <text x="100" y="120" font-family="Arial" font-size="14" text-anchor="middle" fill="#1976d2" font-weight="bold">Círculo</text>
+                        <line x1="30" y1="130" x2="170" y2="130" stroke="#1976d2" stroke-width="1"/>
+                        <text x="100" y="145" font-family="Arial" font-size="12" text-anchor="middle">raio</text>
+                        <text x="100" y="160" font-family="Arial" font-size="12" text-anchor="middle">calcularArea() → πr²</text>
+                        
+                        <rect x="180" y="100" width="140" height="60" rx="5" ry="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                        <text x="250" y="120" font-family="Arial" font-size="14" text-anchor="middle" fill="#1976d2" font-weight="bold">Retângulo</text>
+                        <line x1="180" y1="130" x2="320" y2="130" stroke="#1976d2" stroke-width="1"/>
+                        <text x="250" y="145" font-family="Arial" font-size="12" text-anchor="middle">base, altura</text>
+                        <text x="250" y="160" font-family="Arial" font-size="12" text-anchor="middle">calcularArea() → b×a</text>
+                        
+                        <!-- Real world examples -->
+                        <circle cx="100" cy="190" r="10" fill="#1976d2"/>
+                        <rect x="230" y="180" width="20" height="20" fill="#1976d2"/>
+                    </svg>
+                </div>
+
+                <ul class="benefit-list">
+                    <li>Simplifica sistemas complexos focando no essencial</li>
+                    <li>Permite definir "contratos" que subclasses implementam</li>
+                    <li>Promove consistência entre implementações relacionadas</li>
+                    <li>Facilita o desenvolvimento de sistemas modulares</li>
+                </ul>
+
+                <div class="real-world">
+                    <h4>Analogia do Mundo Real:</h4>
+                    <p>Como o conceito de "veículo" - uma ideia geral com características comuns, mas que precisa de implementações específicas (carro, moto, barco) para existir no mundo real.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h3>Como os 4 Pilares Trabalham Juntos</h3>
+            <p>A combinação dos quatro pilares da POO - <strong>Encapsulamento</strong>, <strong>Herança</strong>, <strong>Polimorfismo</strong> e <strong>Abstração</strong> - proporciona código mais organizado, reutilizável e manutenível. Juntos, eles permitem criar sistemas modulares e escaláveis, onde cada objeto tem responsabilidades bem definidas e a complexidade é gerenciada de forma eficiente.</p>
+            <p>Estes conceitos são a base da programação orientada a objetos em Java e em praticamente todas as linguagens orientadas a objetos modernas.</p>
+        </div>
+    </div>
+</body>
+</html>

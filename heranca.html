@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herança - Pilares da POO</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+    <!-- Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Inicialização -->
+    <script>hljs.highlightAll();</script>    
+</head>
+<body>
+    <header>
+        <h1>Pilares da Programação Orientada a Objetos</h1>
+        <nav>
+            <a href="index.html">Voltar</a>
+            <a href="abstracao.html">Abstração</a>
+            <a href="encapsulamento.html">Encapsulamento</a>
+            <a href="heranca.html">Herança</a>
+            <a href="polimorfismo.html">Polimorfismo</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Herança</h2>
+            <p>A <strong>herança</strong> é um dos pilares fundamentais da Programação Orientada a Objetos (POO) que permite que uma classe (chamada subclasse ou classe derivada) herde atributos e métodos de outra classe (chamada superclasse ou classe base). Esta relação é frequentemente descrita como "é um tipo de" ou "é um".</p>
+            
+            <h3>Conceito Fundamental</h3>
+            <p>A herança nos permite criar novas classes baseadas em classes existentes, permitindo o reaproveitamento de código e estabelecendo uma hierarquia entre classes. A classe filha (subclasse) herda características da classe pai (superclasse), podendo adicionar novos atributos e métodos, ou mesmo sobrescrever os existentes.</p>
+
+            <div class="destaque">
+                <p>Exemplo: Um <strong>Cachorro</strong> é um <strong>Animal</strong>, então a classe Cachorro pode herdar da classe Animal.</p>
+            </div>
+
+            <h3>Tipos de Herança</h3>
+            
+            <h4>1. Herança Simples</h4>
+            <p>Na herança simples, uma subclasse herda características de uma única superclasse. É o tipo de herança mais comum e suportado por todas as linguagens orientadas a objetos.</p>
+            
+            <pre class="codigo">
+                <code>
+class Animal {
+    protected String nome;
+    
+    public void comer() {
+        System.out.println(nome + " está comendo.");
+    }
+}
+
+class Cachorro extends Animal {
+    public void latir() {
+        System.out.println(nome + " está latindo.");
+    }
+}
+                </code>
+            </pre>
+            
+            <h4>2. Herança Múltipla</h4>
+            <p>Na herança múltipla, uma subclasse pode herdar características de mais de uma superclasse. Nem todas as linguagens suportam herança múltipla diretamente (como Java), mas algumas oferecem alternativas como interfaces.</p>
+            
+            <pre class="codigo">
+                <code>
+// Exemplo em C++
+class DispositivoEletronico {
+public:
+    void ligar() { cout << "Dispositivo ligado"; }
+};
+
+class DispositivoPortatil {
+public:
+    void carregar() { cout << "Dispositivo carregando"; }
+};
+
+class Smartphone : public DispositivoEletronico, public DispositivoPortatil {
+public:
+    void fazerChamada() { cout << "Fazendo chamada"; }
+};
+                </code>
+            </pre>
+            
+            <h4>3. Herança Multinível</h4>
+            <p>Na herança multinível, temos uma cadeia de herança. Por exemplo, a classe C herda da classe B, que por sua vez herda da classe A.</p>
+            
+            <pre class="codigo">
+                <code>
+class Animal {
+    protected String nome;
+    
+    public void comer() {
+        System.out.println(nome + " está comendo.");
+    }
+}
+
+class Mamifero extends Animal {
+    public void amamentar() {
+        System.out.println(nome + " está amamentando.");
+    }
+}
+
+class Cachorro extends Mamifero {
+    public void latir() {
+        System.out.println(nome + " está latindo.");
+    }
+}
+                </code>
+            </pre>
+            
+            <h4>4. Herança Hierárquica</h4>
+            <p>Na herança hierárquica, várias subclasses herdam de uma única superclasse.</p>
+            
+            <pre class="codigo">
+                <code>
+class Animal {
+    protected String nome;
+    
+    public void comer() {
+        System.out.println(nome + " está comendo.");
+    }
+}
+
+class Cachorro extends Animal {
+    public void latir() {
+        System.out.println(nome + " está latindo.");
+    }
+}
+
+class Gato extends Animal {
+    public void miar() {
+        System.out.println(nome + " está miando.");
+    }
+}
+                </code>
+            </pre>
+
+            <h3>Benefícios da Herança</h3>
+            <ul>
+                <li><strong>Reutilização de código:</strong> Evita a repetição de código, tornando o programa mais eficiente e fácil de manter.</li>
+                <li><strong>Extensibilidade:</strong> Facilita a extensão do sistema, permitindo adicionar novos comportamentos sem modificar o código existente.</li>
+                <li><strong>Organização:</strong> Permite uma estruturação hierárquica das classes, facilitando a compreensão do sistema.</li>
+                <li><strong>Especialização:</strong> Permite que as subclasses se especializem em comportamentos específicos.</li>
+            </ul>
+
+            <h3>Desafios e Considerações</h3>
+            <ul>
+                <li><strong>Acoplamento:</strong> A herança cria um forte acoplamento entre as classes, o que pode dificultar mudanças futuras.</li>
+                <li><strong>Problema do diamante:</strong> Em linguagens que suportam herança múltipla, pode ocorrer ambiguidade quando uma classe herda de duas classes que têm métodos com o mesmo nome.</li>
+                <li><strong>Herança vs. Composição:</strong> Em muitos casos, a composição (ter um objeto como atributo) pode ser uma alternativa melhor à herança.</li>
+            </ul>
+
+            <h3>Herança vs. Composição</h3>
+            <p>Existe um princípio importante na POO: "Prefira composição sobre herança". Isto porque a herança estabelece uma relação rígida entre classes, enquanto a composição permite maior flexibilidade e menor acoplamento.</p>
+            
+            <pre class="codigo">
+                <code>
+// Composição
+class Motor {
+    public void ligar() { ... }
+}
+
+class Carro {
+    private Motor motor; // Carro TEM UM motor
+    
+    public Carro() {
+        this.motor = new Motor();
+    }
+    
+    public void ligar() {
+        motor.ligar();
+    }
+}
+                </code>
+            </pre>
+
+            <h3>Implementação em Diferentes Linguagens</h3>
+            
+            <h4>Java</h4>
+            <pre class="codigo">
+                <code>
+// Java usa a palavra-chave 'extends'
+public class Animal {
+    protected String nome;
+    
+    public void comer() {
+        System.out.println(nome + " está comendo.");
+    }
+}
+
+public class Cachorro extends Animal {
+    public void latir() {
+        System.out.println(nome + " está latindo.");
+    }
+}
+                </code>
+            </pre>
+            
+            <h4>Python</h4>
+            <pre class="codigo">
+                <code>
+# Python coloca a superclasse entre parênteses
+class Animal:
+    def __init__(self, nome):
+        self.nome = nome
+    
+    def comer(self):
+        print(f"{self.nome} está comendo.")
+
+class Cachorro(Animal):
+    def latir(self):
+        print(f"{self.nome} está latindo.")
+                </code>
+            </pre>
+            
+            <h4>C#</h4>
+            <pre class="codigo">
+                <code>
+// C# usa : para indicar herança
+public class Animal
+{
+    protected string Nome;
+    
+    public void Comer()
+    {
+        Console.WriteLine($"{Nome} está comendo.");
+    }
+}
+
+public class Cachorro : Animal
+{
+    public void Latir()
+    {
+        Console.WriteLine($"{Nome} está latindo.");
+    }
+}
+                </code>
+            </pre>
+
+            <h3>Conclusão</h3>
+            <p>A herança é uma ferramenta poderosa na programação orientada a objetos, permitindo modelar relações do mundo real de forma natural e reutilizar código de maneira eficiente. No entanto, deve ser usada com sabedoria, considerando sempre se a relação é verdadeiramente "é-um" e se não seria melhor utilizar a composição em determinados casos.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Pilares da Programação Orientada a Objetos</p>
+    </footer>
+</body>
+</html>

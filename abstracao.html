@@ -1,0 +1,138 @@
+<!-- PÁGINA DE ABSTRAÇÃO -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abstração - Pilares da POO</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+    <!-- Highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Inicialização -->
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header>
+        <h1>Abstração</h1>
+        <nav>
+            <a href="index.html">Voltar</a>
+            <a href="abstracao.html">Abstração</a>
+            <a href="encapsulamento.html">Encapsulamento</a>
+            <a href="heranca.html">Herança</a>
+            <a href="polimorfismo.html">Polimorfismo</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="conceito">
+            <h2>O que é Abstração?</h2>
+            <p>A <strong>abstração</strong> é o processo de identificar as características e comportamentos essenciais de um objeto real e transformá-los em classes na programação. Através dela, reduzimos a complexidade do mundo real para um modelo mais simples e focado no problema que estamos resolvendo.</p>
+            
+            <div class="destaque">
+                <p>Abstração significa <em>"concentrar nas características essenciais e ignorar os detalhes irrelevantes"</em>.</p>
+            </div>
+        </section>
+
+        <section class="exemplo">
+            <h2>Exemplo Prático</h2>
+            <p>Imagine que precisamos modelar um "Carro" em nosso sistema:</p>
+            
+            <div class="codigo">
+                <pre class="codigo">
+                    <code>
+public class Carro {
+    // Atributos (características essenciais)
+    private String marca;
+    private String modelo;
+    private int ano;
+    private String cor;
+    private double velocidadeAtual;
+    
+    // Métodos (comportamentos essenciais)
+    public void acelerar(double incremento) {
+        velocidadeAtual += incremento;
+    }
+    
+    public void frear(double decremento) {
+        if (velocidadeAtual >= decremento) {
+            velocidadeAtual -= decremento;
+        } else {
+            velocidadeAtual = 0;
+        }
+    }
+    
+    public void trocarMarcha(int novaMarcha) {
+        // Implementação da troca de marcha
+    }
+}
+                </code></pre>
+            </div>
+            
+            <p>Neste exemplo:</p>
+            <ul>
+                <li>Abstraímos apenas o que é importante para nossa aplicação (marca, modelo, velocidade)</li>
+                <li>Não nos preocupamos com detalhes como "número de parafusos", "tipo de tecido dos bancos", etc.</li>
+                <li>Definimos apenas os comportamentos relevantes como acelerar e frear</li>
+            </ul>
+        </section>
+
+        <section class="aplicacao">
+            <h2>Aplicação na Programação</h2>
+            <p>Na programação, a abstração é aplicada de diversas formas:</p>
+            
+            <h3>1. Classes Abstratas</h3>
+            <p>Classes que não podem ser instanciadas diretamente e frequentemente contêm métodos abstratos (sem implementação).</p>
+            
+            <div class="codigo">
+                <pre class="codigo"><code>
+public abstract class Animal {
+    protected String nome;
+    
+    public abstract void emitirSom(); // Método abstrato
+    
+    public void dormir() {
+        System.out.println("O animal está dormindo...");
+    }
+}
+                </code></pre>
+            </div>
+            
+            <h3>2. Interfaces</h3>
+            <p>Representam contratos que definem comportamentos que as classes devem implementar.</p>
+            
+            <div class="codigo">
+                <pre class="codigo"><code>
+public interface Voador {
+    void voar();
+    int getAltitudeMaxima();
+}
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="beneficios">
+            <h2>Benefícios da Abstração</h2>
+            <ul>
+                <li><strong>Redução da Complexidade:</strong> Foca apenas no que é relevante para a solução</li>
+                <li><strong>Reutilização de Código:</strong> Permite criar componentes genéricos e reutilizáveis</li>
+                <li><strong>Manutenção Simplificada:</strong> Facilita alterações e atualizações no código</li>
+                <li><strong>Organização:</strong> Estrutura o código de forma mais clara e organizada</li>
+                <li><strong>Segurança:</strong> Esconde detalhes de implementação desnecessários</li>
+            </ul>
+        </section>
+
+        <section class="conclusao">
+            <h2>Conclusão</h2>
+            <p>A abstração é um dos princípios fundamentais da Programação Orientada a Objetos, permitindo representar entidades complexas do mundo real de forma simplificada no código. Através dela, podemos focar no que realmente importa para nosso problema, ignorando detalhes irrelevantes.</p>
+            <p>Na prática, usamos abstração sempre que criamos classes, definimos interfaces ou estabelecemos hierarquias com classes abstratas.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 - Os 4 Pilares da Programação Orientada a Objetos</p>
+    </footer>
+</body>
+</html>
