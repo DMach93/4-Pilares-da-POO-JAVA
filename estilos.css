@@ -10,7 +10,7 @@ body {
     background-color: #121212;
     color: #E0E0E0;
     line-height: 1.6;
-    padding: 20px;
+    padding: 10px;
 }
 
 header {
@@ -20,16 +20,40 @@ header {
     margin-bottom: 20px;
     text-align: center;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-    max-width: 1000px;
-    margin: 0 auto;
-    height: 200px;
-
-
+    max-width: 100%;
+    margin: 0 auto 20px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 header h1 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+.java-logo {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 10px auto;
+    background-color: white;
+    border-radius: 50%;
+    padding: 15px;
+}
+
+@media (max-width: 768px) {
+    .java-logo {
+        width: 60px;
+        height: 60px;
+        padding: 10px;
+    }
 }
 
 nav {
@@ -37,6 +61,7 @@ nav {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 15px;
 }
 
 nav a {
@@ -50,6 +75,12 @@ nav a {
 
 nav a:hover {
     background-color: #37474F;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
 }
 
 main {
@@ -68,160 +99,214 @@ section {
 section h2 {
     color: #FFCA28;
     margin-bottom: 15px;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
 }
 
 section h3 {
     color: #FF7043;
     margin-top: 20px;
     margin-bottom: 10px;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
 }
 
 p, li {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
 ul {
     padding-left: 20px;
 }
 
-.codigo {
-    background-color: #263238;
-    padding: 15px;
-    border-radius: 10px;
-    overflow-x: auto;
-    margin: 15px 0;
+.pillars {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 30px 0;
+    gap: 20px;
 }
 
-.codigo code {
-    color: #FFFFFF;
-    font-family: 'Courier New', monospace;
-    font-size: 0.95rem;
-    white-space: pre;
-}
-
-.destaque {
-    background-color: #333;
-    border-left: 5px solid #FFCA28;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 15px 0;
-    font-style: italic;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    background-color: #212121;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-table th, table td {
-    border: 1px solid #444;
-    padding: 10px;
-    text-align: center;
-}
-
-table th {
-    background-color: #424242;
-    color: #FFCA28;
-}
-
-table td {
-    color: #E0E0E0;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    font-size: 0.9rem;
-    background-color: #1F1F1F;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-}
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212;
-    color: #E0E0E0;
-    line-height: 1.6;
-    padding: 20px;
-}
-
-header {
-    background-color: #1F1F1F;
-    padding: 20px;
-    border-radius: 12px;
+.pillar {
+    flex-basis: calc(50% - 20px);
     margin-bottom: 20px;
-    text-align: center;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-}
-
-header h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
-
-nav a {
-    color: #90CAF9;
-    background-color: #263238;
-    padding: 10px 15px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.3s;
-}
-
-nav a:hover {
-    background-color: #37474F;
-}
-
-main {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-section {
-    margin-bottom: 40px;
-    padding: 20px;
     background-color: #1E1E1E;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-section h2 {
-    color: #FFCA28;
+@media (max-width: 768px) {
+    .pillar {
+        flex-basis: 100%;
+    }
+}
+
+.pillar-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.pillar:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.pillar-header {
+    display: flex;
+    align-items: center;
     margin-bottom: 15px;
 }
 
-section h3 {
-    color: #FF7043;
+.pillar-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #e8eaf6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.8rem;
+    color: #3949ab;
+    flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+    .pillar-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+}
+
+.pillar h2 {
+    color: #FFCA28;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    border-bottom: 3px solid #c5cae9;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.example-code {
+    background-color: #263238;
+    color: #f5f5f5;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px 0;
+    font-family: Consolas, Monaco, 'Courier New', monospace;
+    font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    overflow-x: auto;
+    position: relative;
+}
+
+.code-comment {
+    color: #8bc34a;
+}
+
+.code-keyword {
+    color: #ff5722;
+}
+
+.code-string {
+    color: #ffca28;
+}
+
+.code-normal {
+    color: #e0e0e0;
+}
+
+.benefit-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.benefit-list li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 8px;
+}
+
+.benefit-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.diagram {
+    background-color: #e8eaf6;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 15px 0;
+    overflow-x: auto;
+}
+
+.diagram svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.pillar-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #1a237e;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.real-world {
+    background-color: #e3f2fd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border-left: 4px solid #1976d2;
+}
+
+.real-world h4 {
+    color: #1976d2;
+    margin-bottom: 8px;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.conclusion {
+    background-color: #1F1F1F;
+    padding: 25px;
+    border-radius: 10px;
     margin-top: 20px;
-    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
-p, li {
-    font-size: 1.1rem;
+.conclusion h3 {
+    color: #FFCA28;
+    margin-bottom: 15px;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
 }
 
-ul {
-    padding-left: 20px;
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    background-color: #1F1F1F;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
 }
 
+/* Código responsivo */
 .codigo {
     background-color: #263238;
     padding: 15px;
@@ -233,7 +318,7 @@ ul {
 .codigo code {
     color: #FFFFFF;
     font-family: 'Courier New', monospace;
-    font-size: 0.95rem;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
     white-space: pre;
 }
 
@@ -252,13 +337,28 @@ table {
     margin-top: 15px;
     background-color: #212121;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-x: auto;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    table {
+        display: table;
+        overflow-x: hidden;
+    }
 }
 
 table th, table td {
     border: 1px solid #444;
-    padding: 10px;
+    padding: 8px;
     text-align: center;
+}
+
+@media (max-width: 480px) {
+    table th, table td {
+        padding: 5px;
+        font-size: 0.9rem;
+    }
 }
 
 table th {
@@ -268,14 +368,4 @@ table th {
 
 table td {
     color: #E0E0E0;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    font-size: 0.9rem;
-    background-color: #1F1F1F;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
 }
