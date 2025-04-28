@@ -1,4 +1,4 @@
-https://dmach93.github.io/4-Pilares-da-POO-JAVA/index.html
+[https://domingosmachado.github.io/4-Pilares-da-POO-JAVA/](https://domingosmachado.github.io/4-Pilares-da-POO-JAVA/)
 
 # 🧠 Pilares da Programação Orientada a Objetos em Java
 
